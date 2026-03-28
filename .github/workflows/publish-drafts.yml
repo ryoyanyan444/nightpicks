@@ -1,0 +1,43 @@
+name: Publish drafts to Supabase
+
+on:
+  push:
+    branches: [main]
+    paths: ['drafts/*.json']
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Find new/changed draft JSONs
+        id: drafts
+        run: |
+          FILES=$(git diff --name-only HEAD~1 HEAD -- 'drafts/*.json' | tr '\n' ' ')
+          echo "files=$FILES" >> "$GITHUB_OUTPUT"
+          if [ -z "$FILES" ]; then
+            echo "No draft files changed"
+          else
+            echo "Changed drafts: $FILES"
+          fi
+
+      - name: Publish to Supabase
+        if: steps.drafts.outputs.files != ''
+        env:
+          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          for file in ${{ steps.drafts.outputs.files }}; do
+            echo "Publishing: $file"
+            node scripts/publish-draft.mjs "$file"
+          done

@@ -3,25 +3,98 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0e1a;
+  --foreground: #f3f4f6;
+  --accent: #7c3aed;
+  --accent-light: #a78bfa;
+  --gold: #f59e0b;
+  --card-bg: #111827;
+  --card-border: #1f2937;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* スクロールバー */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4b5563;
+}
+
+/* 記事本文のスタイル */
+.article-content h2 {
+  @apply text-2xl font-bold text-white mt-10 mb-4 pb-2 border-b border-dark-700;
+}
+.article-content h3 {
+  @apply text-xl font-bold text-gray-100 mt-8 mb-3;
+}
+.article-content p {
+  @apply text-gray-300 leading-relaxed mb-6;
+}
+.article-content ul {
+  @apply list-disc list-inside mb-6 space-y-2 text-gray-300;
+}
+.article-content ol {
+  @apply list-decimal list-inside mb-6 space-y-2 text-gray-300;
+}
+.article-content blockquote {
+  @apply border-l-4 border-night-500 pl-4 py-2 my-6 bg-dark-900 rounded-r-lg text-gray-400 italic;
+}
+.article-content a {
+  @apply text-night-300 hover:text-night-200 underline;
+}
+.article-content img {
+  @apply rounded-lg my-6 w-full;
+}
+.article-content strong {
+  @apply text-white font-semibold;
+}
+.article-content code {
+  @apply bg-dark-800 text-night-300 px-1.5 py-0.5 rounded text-sm;
+}
+.article-content pre {
+  @apply bg-dark-900 rounded-lg p-4 my-6 overflow-x-auto;
+}
+.article-content pre code {
+  @apply bg-transparent p-0;
+}
+
+/* カテゴリバッジ */
+.category-badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+.category-news { @apply bg-red-900/50 text-red-300; }
+.category-technique { @apply bg-blue-900/50 text-blue-300; }
+.category-interview { @apply bg-purple-900/50 text-purple-300; }
+.category-ranking { @apply bg-gold-900/50 text-gold-300; }
+.category-column { @apply bg-green-900/50 text-green-300; }
+.category-lifestyle { @apply bg-pink-900/50 text-pink-300; }
+
+/* グラデーション */
+.gradient-night {
+  background: linear-gradient(135deg, #1a0a3e 0%, #0a0e1a 50%, #172033 100%);
+}
+.gradient-gold {
+  background: linear-gradient(135deg, #78350f 0%, #f59e0b 100%);
+}
+.gradient-text {
+  background: linear-gradient(135deg, #a78bfa, #f59e0b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
