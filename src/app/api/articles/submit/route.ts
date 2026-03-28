@@ -1,0 +1,116 @@
+import { NextRequest, NextResponse } from "next/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+
+export async function POST(req: NextRequest) {
+  // API key auth for Cowork agent
+  const apiKey = req.headers.get("x-api-key");
+  if (apiKey !== process.env.ARTICLE_SUBMIT_API_KEY) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const supabase = createAdminClient();
+
+  try {
+    const draft = await req.json();
+
+    // Resolve category_slug → category_id
+    const { data: category } = await supabase
+      .from("categories")
+      .select("id")
+      .eq("slug", draft.category_slug)
+      .single();
+
+    if (!category) {
+      return NextResponse.json(
+        { error: `Category not found: ${draft.category_slug}` },
+        { status: 400 }
+      );
+    }
+
+    // Get AI author
+    const { data: author } = await supabase
+      .from("authors")
+      .select("id")
+      .eq("is_ai", true)
+      .single();
+
+    // Check duplicate slug
+    const { data: existing } = await supabase
+      .from("articles")
+      .select("id")
+      .eq("slug", draft.slug)
+      .single();
+
+    if (existing) {
+      return NextResponse.json(
+        { error: `Article already exists: ${draft.slug}`, article_id: existing.id },
+        { status: 409 }
+      );
+    }
+
+    // Append sources to content
+    const sourcesSection =
+      draft.sources?.length > 0
+        ? `\n\n---\n\n## 参考文献・出典\n\n${draft.sources.map((s: any) => `- [${s.title}](${s.url})（${s.accessed_at} アクセス）`).join("\n")}`
+        : "";
+
+    const fullContent = draft.content + sourcesSection;
+
+    // Insert article with ai_review status
+    const { data: article, error: insertErr } = await supabase
+      .from("articles")
+      .insert({
+        title: draft.title,
+        subtitle: draft.subtitle || "",
+        slug: draft.slug,
+        content: fullContent,
+        excerpt: draft.excerpt,
+        seo_title: draft.seo_title,
+        seo_description: draft.seo_description,
+        seo_keywords: draft.seo_keywords,
+        category_id: category.id,
+        author_id: author?.id || null,
+        status: "ai_review",
+        ai_generated: true,
+        ai_prompt: draft.topic,
+        ai_model: "claude-cowork",
+      })
+      .select()
+      .single();
+
+    if (insertErr) {
+      return NextResponse.json({ error: insertErr.message }, { status: 500 });
+    }
+
+    // Save fact-check review
+    if (draft.fact_check) {
+      const reviewComments = [
+        draft.fact_check.notes,
+        "",
+        "--- 検証結果 ---",
+        ...draft.fact_check.claims_verified.map(
+          (c: any) => `[${c.verified ? "OK" : "NG"}] ${c.claim} (出典: ${c.source})`
+        ),
+        "",
+        "[自動ファクトチェック by claude-cowork]",
+      ].join("\n");
+
+      await supabase.from("article_reviews").insert({
+        article_id: article.id,
+        review_type: "fact_check",
+        status:
+          draft.fact_check.status === "approved" ? "approved" : "needs_revision",
+        comments: reviewComments,
+      });
+    }
+
+    return NextResponse.json({
+      success: true,
+      article_id: article.id,
+      title: article.title,
+      slug: article.slug,
+    });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 });
+  }
+}
