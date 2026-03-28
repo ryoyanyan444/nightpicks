@@ -1,0 +1,32 @@
+{
+  "title": "改正風営法2025、ナイトワーカー必読ガイド",
+  "subtitle": "2025年6月28日施行｜キャスト個人も刑事罰の対象に",
+  "excerpt": "2025年6月28日施行の改正風営法を現場目線で解説。色恋営業禁止・スカウトバック全面禁止・無許可営業の罰則大幅強化など、ナイトワーカーが知るべき6つのポイントを条文付きでわかりやすく紹介。",
+  "slug": "fueihou-kaisei-2025-nightworker-guide",
+  "seo_title": "【2025年6月施行】改正風営法でナイトワーカーが知るべき6つのポイント",
+  "seo_description": "2025年6月28日施行の改正風営法を徹底解説。色恋営業禁止（第18条の3）、スカウトバック禁止（第28条13項）、無許可営業の罰則強化（第49条）など、キャバクラ・ホスト・ガールズバースタッフ必読の内容を条文付きでわかりやすく解説。",
+  "seo_keywords": ["風営法改正2025", "改正風営法", "色恋営業禁止", "ナイトワーカー", "キャバクラ法律", "スカウトバック禁止", "風俗営業法", "夜の仕事"],
+  "category_slug": "news",
+  "topic": "風営法2025年改正・ナイトワーカー向け解説",
+  "sources": [
+    { "url": "https://www.npa.go.jp/bureau/safetylife/hoan/hostclubto/070528huueihougaiyou.pdf", "title": "警察庁「改正風営法（概要）」", "accessed_at": "2026-03-28" },
+    { "url": "https://laws.e-gov.go.jp/law/504AC0000000068", "title": "e-Gov 法令検索 – 風俗営業等の規制及び業務の適正化等に関する法律", "accessed_at": "2026-03-28" },
+    { "url": "https://www.sangiin.go.jp/japanese/joho1/kousei/gian/217/meisai/m217080217047.htm", "title": "参議院「改正法律案」", "accessed_at": "2026-03-28" },
+    { "url": "https://keiji-kaiketsu.com/keiji-column/11070/", "title": "上原総合法律事務所・元検事弁護士解説", "accessed_at": "2026-03-28" },
+    { "url": "https://corporate.vbest.jp/columns/8011/", "title": "ベリーベスト法律事務所", "accessed_at": "2026-03-28" },
+    { "url": "https://toaru.tokyo/amendment_law/", "title": "2025年風営法改正まとめ", "accessed_at": "2026-03-28" }
+  ],
+  "fact_check": {
+    "status": "approved",
+    "notes": "法律番号・施行日・条文番号・罰則を警察庁公式資料、e-Gov法令、参議院議案情報、弁護士解説記事で相互確認済み。",
+    "claims_verified": [
+      { "claim": "令和7年法律第45号・2025年6月28日施行", "source": "https://www.sangiin.go.jp/japanese/joho1/kousei/gian/217/meisai/m217080217047.htm", "verified": true },
+      { "claim": "第18条の3違反は行政処分のみ（刑事罰なし）", "source": "https://keiji-kaiketsu.com/keiji-column/11070/", "verified": true },
+      { "claim": "第22条の2：6月以下拘禁刑or100万円以下罰金（第53条1項2号）", "source": "https://corporate.vbest.jp/columns/8011/", "verified": true },
+      { "claim": "第28条13項スカウトバック禁止：6月以下拘禁刑or100万円以下罰金（第53条7号）", "source": "https://corporate.vbest.jp/columns/8011/", "verified": true },
+      { "claim": "第49条・第57条：個人5年以下/1,000万円以下、法人3億円以下", "source": "https://corporate.vbest.jp/columns/8011/", "verified": true },
+      { "claim": "施行初日2025年6月28日に歌舞伎町ガールズバーで全国初摘発", "source": "https://toaru.tokyo/amendment_law/", "verified": true },
+      { "claim": "キャスト個人も第22条の2の刑事罰対象", "source": "https://keiji-kaiketsu.com/keiji-column/11070/", "verified": true }
+    ]
+  }
+}
