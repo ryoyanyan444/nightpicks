@@ -1,5 +1,4 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 import AdminSidebar from "@/components/admin/Sidebar";
 
 export const metadata = {
@@ -16,10 +15,10 @@ export default async function AdminLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
-  // Login page doesn't need the admin layout
-  // This is handled by middleware, but double-check here
+  // Not logged in: render children without sidebar (login page)
+  // Auth redirect is handled by middleware
   if (!user) {
-    redirect("/admin/login");
+    return <>{children}</>;
   }
 
   return (
