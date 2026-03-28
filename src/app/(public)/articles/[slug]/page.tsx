@@ -88,6 +88,7 @@ export default async function ArticlePage({ params }: { params: { slug: string }
   ]);
 
   const headings = extractHeadings(article.content);
+  const readingMinutes = Math.max(1, Math.ceil(article.content.length / 500));
   const categorySlug = article.category?.slug as CategorySlug | undefined;
   const categoryInfo = categorySlug ? CATEGORIES[categorySlug] : null;
 
@@ -168,6 +169,9 @@ export default async function ArticlePage({ params }: { params: { slug: string }
                   {format(new Date(article.published_at), "yyyy年MM月dd日", { locale: ja })}
                 </time>
               )}
+              <span className="text-sm text-gray-500">
+                {readingMinutes}分で読める
+              </span>
             </div>
             <ShareButtons title={article.title} slug={article.slug} />
           </div>
