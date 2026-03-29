@@ -45,6 +45,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className="dark">
+      <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-461NX4VQPY" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-461NX4VQPY');`,
+          }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${notoSansJP.variable} font-sans antialiased bg-dark-950 text-gray-100 min-h-screen`}
       >
