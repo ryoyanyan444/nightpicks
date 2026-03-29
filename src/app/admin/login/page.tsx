@@ -39,7 +39,7 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-dark-950 px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold gradient-text">NIGHTPICKS</h1>
+          <h1 className="text-2xl font-bold gradient-text">よるぴく</h1>
           <p className="mt-2 text-sm text-gray-500">管理画面ログイン</p>
         </div>
 

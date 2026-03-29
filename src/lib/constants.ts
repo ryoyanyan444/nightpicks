@@ -1,4 +1,4 @@
-export const SITE_NAME = "NIGHTPICKS";
+export const SITE_NAME = "よるぴく";
 export const SITE_DESCRIPTION =
   "ナイトワーカーのための情報メディア。ホスト・キャバ嬢の接客テクニック、業界ニュース、インタビュー、ランキングなど毎日更新。";
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://nightpicks.jp";

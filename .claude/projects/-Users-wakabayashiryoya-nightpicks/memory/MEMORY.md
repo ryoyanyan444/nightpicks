@@ -1,0 +1,3 @@
+- [ソースの質を重視](feedback_sources.md) — Wikipediaを避け、専門家・実務者の記事を優先する
+- [マネタイズ戦略](project_monetize.md) — アフィリエイト・広告収益化。トラフィック獲得済み
+- [SaloCheckからの送客](reference_salocheck.md) — SaloCheckからNIGHTPICKSへトラフィック流入あり

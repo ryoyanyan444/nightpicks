@@ -85,7 +85,7 @@ export default function AdminSidebar({ userEmail }: { userEmail: string }) {
           {/* Logo */}
           <div className="p-6 border-b border-dark-800">
             <Link href="/admin" className="text-lg font-bold gradient-text">
-              NIGHTPICKS
+              よるぴく
             </Link>
             <p className="text-xs text-gray-600 mt-1">管理画面</p>
           </div>

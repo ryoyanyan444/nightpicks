@@ -14,7 +14,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <span className="text-xl font-bold gradient-text tracking-tight">
-              NIGHTPICKS
+              よるぴく
             </span>
           </Link>
 
