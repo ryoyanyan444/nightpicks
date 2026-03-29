@@ -5,7 +5,7 @@ export const runtime = "edge";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const title = searchParams.get("title") || "よるぴく";
+  const title = searchParams.get("title") || "夜ピク";
   const category = searchParams.get("category") || "";
 
   return new ImageResponse(
@@ -103,7 +103,7 @@ export async function GET(request: NextRequest) {
               color: "transparent",
             }}
           >
-            よるぴく
+            夜ピク
           </span>
         </div>
       </div>

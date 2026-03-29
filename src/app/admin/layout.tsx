@@ -2,7 +2,7 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import AdminSidebar from "@/components/admin/Sidebar";
 
 export const metadata = {
-  title: "管理画面 | よるぴく",
+  title: "管理画面 | 夜ピク",
 };
 
 export default async function AdminLayout({

@@ -38,7 +38,7 @@ export default function Footer() {
           {/* Links */}
           <div>
             <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">
-              よるぴく
+              夜ピク
             </h3>
             <ul className="space-y-2">
               <li>
