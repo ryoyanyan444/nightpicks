@@ -54,7 +54,39 @@ export async function POST(req: NextRequest) {
         ? `\n\n---\n\n## 参考文献・出典\n\n${draft.sources.map((s: any) => `- [${s.title}](${s.url})（${s.accessed_at} アクセス）`).join("\n")}`
         : "";
 
-    const fullContent = draft.content + sourcesSection;
+    // Fetch in-article images from Unsplash for each h2 heading
+    let enrichedContent = draft.content;
+    const unsplashKey = process.env.UNSPLASH_ACCESS_KEY;
+    if (unsplashKey) {
+      const h2Matches = [...draft.content.matchAll(/^## (.+)$/gm)];
+      for (const match of h2Matches) {
+        const heading = match[1].replace(/[*#]/g, "").trim();
+        // Skip utility headings
+        if (heading === "この記事のポイント" || heading === "参考文献・出典" || heading === "まとめ") continue;
+        try {
+          const q = encodeURIComponent(heading.slice(0, 30));
+          const res = await fetch(
+            `https://api.unsplash.com/search/photos?query=${q}&per_page=1&orientation=landscape`,
+            { headers: { Authorization: `Client-ID ${unsplashKey}` } }
+          );
+          if (res.ok) {
+            const data = await res.json();
+            const photo = data.results?.[0];
+            if (photo) {
+              const imgMd = `\n\n![${heading}](${photo.urls.regular})\n*Photo by [${photo.user.name}](${photo.user.links.html}) on [Unsplash](https://unsplash.com)*\n`;
+              enrichedContent = enrichedContent.replace(
+                match[0],
+                match[0] + imgMd
+              );
+            }
+          }
+        } catch {
+          // Skip this heading's image
+        }
+      }
+    }
+
+    const fullContent = enrichedContent + sourcesSection;
 
     // Fetch thumbnail from Unsplash
     let thumbnailUrl: string | null = null;
