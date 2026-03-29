@@ -56,6 +56,29 @@ export async function POST(req: NextRequest) {
 
     const fullContent = draft.content + sourcesSection;
 
+    // Fetch thumbnail from Unsplash
+    let thumbnailUrl: string | null = null;
+    let ogpImageUrl: string | null = null;
+    const unsplashKey = process.env.UNSPLASH_ACCESS_KEY;
+    if (unsplashKey) {
+      try {
+        const query = (draft.seo_keywords?.[0] || draft.topic || draft.title).replace(/[^\w\s\u3000-\u9fff]/g, "");
+        const res = await fetch(
+          `https://api.unsplash.com/search/photos?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`,
+          { headers: { Authorization: `Client-ID ${unsplashKey}` } }
+        );
+        if (res.ok) {
+          const data = await res.json();
+          if (data.results?.[0]) {
+            thumbnailUrl = data.results[0].urls.regular;
+            ogpImageUrl = data.results[0].urls.regular;
+          }
+        }
+      } catch {
+        // Unsplash fetch failed, continue without image
+      }
+    }
+
     // Insert article with ai_review status
     const { data: article, error: insertErr } = await supabase
       .from("articles")
@@ -68,6 +91,8 @@ export async function POST(req: NextRequest) {
         seo_title: draft.seo_title,
         seo_description: draft.seo_description,
         seo_keywords: draft.seo_keywords,
+        thumbnail_url: thumbnailUrl,
+        ogp_image_url: ogpImageUrl,
         category_id: category.id,
         author_id: author?.id || null,
         status: "ai_review",
