@@ -54,9 +54,11 @@ export async function POST(req: NextRequest) {
         ? `\n\n---\n\n## 参考文献・出典\n\n${draft.sources.map((s: any) => `- [${s.title}](${s.url})（${s.accessed_at} アクセス）`).join("\n")}`
         : "";
 
-    // Fetch in-article images from Unsplash for each h2 heading
-    let enrichedContent = draft.content;
+    // Fetch images from Unsplash
     const unsplashKey = process.env.UNSPLASH_ACCESS_KEY;
+
+    // Fetch in-article images for each h2 heading
+    let enrichedContent = draft.content;
     if (unsplashKey) {
       const h2Matches = [...draft.content.matchAll(/^## (.+)$/gm)];
       for (const match of h2Matches) {
@@ -91,7 +93,6 @@ export async function POST(req: NextRequest) {
     // Fetch thumbnail from Unsplash
     let thumbnailUrl: string | null = null;
     let ogpImageUrl: string | null = null;
-    const unsplashKey = process.env.UNSPLASH_ACCESS_KEY;
     if (unsplashKey) {
       try {
         const query = (draft.seo_keywords?.[0] || draft.topic || draft.title).replace(/[^\w\s\u3000-\u9fff]/g, "");
