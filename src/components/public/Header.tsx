@@ -13,7 +13,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <span className="text-xl font-bold gradient-text tracking-tight">
+            <span className="text-xl font-bold text-white tracking-tight">
               よるぴく
             </span>
           </Link>

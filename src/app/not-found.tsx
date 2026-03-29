@@ -8,7 +8,7 @@ export default function NotFound() {
       <Header />
       <main className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
-          <p className="text-6xl font-bold gradient-text">404</p>
+          <p className="text-6xl font-bold text-white">404</p>
           <h1 className="mt-4 text-xl font-bold text-white">
             ページが見つかりません
           </h1>

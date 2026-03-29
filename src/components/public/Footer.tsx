@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <span className="text-lg font-bold gradient-text">{SITE_NAME}</span>
+            <span className="text-lg font-bold text-white">{SITE_NAME}</span>
             <p className="mt-3 text-sm text-gray-500 leading-relaxed">
               ナイトワーカーのための情報メディア。
               <br />

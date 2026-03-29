@@ -88,7 +88,7 @@ export default async function HomePage() {
           <div className="max-w-7xl mx-auto px-4">
             <div className="text-center mb-10">
               <h1 className="text-3xl md:text-5xl font-bold">
-                <span className="gradient-text">よるぴく</span>
+                <span className="text-white">よるぴく</span>
               </h1>
               <p className="mt-3 text-gray-400 text-sm md:text-base">
                 ナイトワーカーのためのえりすぐり情報メディア
